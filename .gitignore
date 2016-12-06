@@ -1,0 +1,9 @@
+깃에 올라가지 말아야 할 파일들을 적으시면 안올라가게됩니다. 
+
+.DS_STORE
+node_modules
+.grunt
+docs/.bundle
+*.log*
+*.sublime-project
+*.sublime-workspace

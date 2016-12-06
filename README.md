@@ -3,12 +3,12 @@ project for study
 <br>
 About the Project<br>
 
-App pages
+App pages:
 <br>
   estirq.html<br>
   inbox.html<br>
 
-Shop pages
+Shop pages:
 <br>
   inbox-shop.html<br>
   reservation.html<br>

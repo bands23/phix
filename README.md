@@ -1,5 +1,5 @@
 # phix
-project for study<br>
+project for studying firebase and react<br>
 <br>
 About the Project<br>
 

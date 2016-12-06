@@ -1,15 +1,15 @@
 # phix
 project for study
 <br>
-About the Project
+About the Project<br>
 
 App pages
 <br>
-  estirq.html
-  inbox.html
+  estirq.html<br>
+  inbox.html<br>
 
 Shop pages
 <br>
-  inbox-shop.html
-  reservation.html
+  inbox-shop.html<br>
+  reservation.html<br>
 

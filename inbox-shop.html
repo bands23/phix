@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Inbox-shop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">-->
+  <link rel="stylesheet" href="library/w3.css">
+  <link rel="stylesheet" href="/style/w3-theme-teal-custom.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+  <style>
+    body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+    .w3-sidenav a {padding:16px;font-weight:bold}
+  </style>
+  <!-- JS -------------------------------------------------------------------------------------------------------------->
+	<!-- jQuery -->
+  <!--<script src='../library/jquery-3.1.1.js'></script>-->
+  <!-- Include the jQuery library -->
+	<script src='../library/jquery-1.11.2.min.js'></script>
+	<!-- Include the jQuery Mobile library -->
+	<script src='../library/jquery.mobile.custom.min.js'></script>
+	<!-- Bootstrap js -->
+  <script src='../library/bootstrap-3.3.7-dist/js/bootstrap.min.js'></script>
+  <!-- Slide Input -->
+	<script src='../library/jasny-bootstrap/js/jasny-bootstrap.min.js'></script>
+  <!-- JS -->
+	<script src='../library/common.js'></script>
+	<!-- Datetime Picker-->
+	<script src='../library/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js'></script>
+	<!--<link rel='stylesheet' href='../library/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.css'>-->
+  
+	<!-- CSS -------------------------------------------------------------------------------------------------------------->
+	<!-- For image input function: Latest compiled and minified CSS -->
+	<link rel='stylesheet' href='../library/jasny-bootstrap/css/jasny-bootstrap.min.css'>
+	<!-- Bootstrap Core CSS: For estimate-request.php -->
+  <link href='../library/bootstrap-3.3.7-dist/css/bootstrap.min.css' rel='stylesheet'>
+	<!-- fontawesome -->
+	<link rel='stylesheet' href='../library/font-awesome-4.3.0/css/font-awesome.min.css'>
+	<!--w3.css-->
+	<link rel='stylesheet' href='../library/w3.css'>
+	<!--<link rel='stylesheet' href='../library/w3-color-library.css'>-->
+	<link rel="stylesheet" href="/style/w3-theme-teal-custom.css">
+</head>
+
+<body style="background-color:">
+
+<nav class="w3-sidenav w3-collapse w3-white w3-animate-left w3-card-2" style="z-index:30;width:250px;" id="mySidenav">
+  <div class="w3-card-2 w3-blue w3-display-container" style="background:url(img/auth-master/top.jpg) center; background-size:cover; height:150px; opacity:1.0;">
+    <!-- <img src="img/mechanics/7.jpg" alt="profile background"> -->
+    <!-- <a href="#" class="w3-border-bottom w3-large">Photo your car and fix it!</a> -->
+    <img class="w3-circle w3-card-4 w3-border w3-display-bottomleft" src="img/mechanics/pic_staff.jpg" style="width:25%; margin:0px 0px 8px 8px;" >
+  </div>
+  <a href="javascript:void(0)" onclick="w3_close()"
+  class="w3-text-teal w3-hide-large w3-closenav w3-large">Close <i class="fa fa-remove"></i></a>
+  <a href="inbox-shop.html" class="w3-light-grey w3-medium">Inbox</a>
+  <a href="reservation.html">Reservation</a>
+  <a href="shop-profile.html">Shop profile</a>
+  <a href="about.html">About Phix</a>
+  <div class="w3-section w3-padding-top w3-large">
+    <a href="#" class="w3-hover-white w3-hover-text-indigo w3-show-inline-block"><i class="fa fa-facebook-official"></i></a>
+    <a href="#" class="w3-hover-white w3-hover-text-purple w3-show-inline-block"><i class="fa fa-instagram"></i></a>
+    <a href="#" class="w3-hover-white w3-hover-text-yellow w3-show-inline-block"><i class="fa fa-snapchat"></i></a>
+    <a href="#" class="w3-hover-white w3-hover-text-red w3-show-inline-block"><i class="fa fa-pinterest-p"></i></a>
+    <a href="#" class="w3-hover-white w3-hover-text-light-blue w3-show-inline-block"><i class="fa fa-twitter"></i></a>
+    <a href="#" class="w3-hover-white w3-hover-text-indigo w3-show-inline-block"><i class="fa fa-linkedin"></i></a>
+  </div>
+</nav>
+
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" id="myOverlay"></div>
+
+<div class="w3-main" style="margin-left:250px;">
+
+  <div id="myTop" class="w3-top w3-container w3-padding-16 w3-theme w3-large" style="z-index:20">
+    <i class="fa fa-bars w3-opennav w3-hide-large w3-xlarge w3-margin-left w3-margin-right" onclick="w3_open()"></i>
+    <span id="myIntro" class="w3-hide">Phix Shop</span>
+  </div>
+
+  <header class="w3-container w3-theme w3-padding-64" style="padding-left:32px;" >
+    <h1 class="w3-xxxlarge w3-padding-16">PhixShop</h1>
+  </header>
+
+  <div class="w3-row">
+    <!--*****************************************************************************************************-->
+    <div class='w3-third w3-card-4 w3-margin-bottom' ></div>
+
+    <div id="casesContainer" style='display:'></div>
+
+  </div> <!--/w3-row-->
+
+  <div class="w3-container w3-padding-32" style="padding-left:32px">
+  <br>
+  </div>
+
+  <footer class="w3-container w3-theme w3-padding-32" style="padding-left:32px">
+    <h5>Footer</h5>
+    <p>Footer information goes here</p>
+  </footer>
+
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBrkH-VwRWZleVc9kEvRg9GkgWvhj7Apvw",
+    authDomain: "test1-b33bf.firebaseapp.com",
+    databaseURL: "https://test1-b33bf.firebaseio.com",
+    storageBucket: "test1-b33bf.appspot.com",
+    messagingSenderId: "786302948381"
+  };
+  firebase.initializeApp(config);
+
+  // Check if auth /////////////////////////////////////////////////////////////
+  // Global variables
+  var uid;
+  //Add a realtime Auth listener
+  firebase.auth().onAuthStateChanged(firebaseUser => {
+    if(firebaseUser){
+      uid = firebaseUser.uid;
+      console.log(uid);
+      console.log(firebaseUser.displayName);
+      console.log(firebaseUser.email);
+      console.log(firebaseUser.photoURL);
+      console.log(firebaseUser.providerId);
+      console.log(firebaseUser);
+
+    }else{
+      console.log('not logged in');
+      //window.location = 'login.html'
+    }
+  });
+
+  // Check estiRqs from RTDB ///////////////////////////////////////////////////
+  // Global variables
+	var estiRqs = [];
+	var estiRqRef = firebase.database().ref('estiRqs/').limitToLast(7);
+	// TODO: change this dir to esti later.
+
+	estiRqRef.on('value', function(snapshot) {
+
+		snapshot.forEach(function(childSnapshot){
+			var tmp_ID_estiRq = childSnapshot.key;
+			var childDir = firebase.database().ref('estiRqs/' + tmp_ID_estiRq);
+
+			childDir.on('value', function(grandchildsnapshot) {
+        // Get all the values for an estiRq
+        var tmp_ID_user = grandchildsnapshot.val().ID_user;
+				var tmp_city = grandchildsnapshot.val().address.city;
+				var tmp_province = grandchildsnapshot.val().address.province;
+				var tmp_year = grandchildsnapshot.val().car.year;
+				var tmp_maker = grandchildsnapshot.val().car.maker;
+				var tmp_model = grandchildsnapshot.val().car.model;
+				var tmp_insuApplied = grandchildsnapshot.val().insuApplied;
+				var tmp_caseOpenedAt = grandchildsnapshot.val().caseOpenedAt;
+				var tmp_countEstiReceived = grandchildsnapshot.val().countEstiReceived;
+				var tmp_token = grandchildsnapshot.val().token;
+				// Put the values in the array, estiRqs
+				var estiRq = {ID_estiRq:tmp_ID_estiRq, ID_user:tmp_ID_user, year:tmp_year, maker:tmp_maker, model:tmp_model, insuApplied:tmp_insuApplied, caseOpenedAt:tmp_caseOpenedAt};
+
+        estiRqs.push(estiRq);
+
+        //Post a case///////////////////////////////////////////////////////////
+        postCase(tmp_ID_estiRq);
+			})
+		});
+	});
+
+  //set eventListener to display
+  var casesContainer = document.getElementById('casesContainer');
+  casesContainer.addEventListener('DOMNodeInserted', function(event) {
+    if( event.target.parentNode.id == 'casesContainer' ) {
+          console.log('child added');
+          console.log(event.target.id);
+
+          //downloadPic(event.target.id);
+          downloadPic(event.target.id, 'pic_1');
+          downloadPic(event.target.id, 'pic_2');
+          downloadPic(event.target.id, 'pic_3');
+
+      };
+  });
+
+  // Post cases ////////////////////////////////////////////////////////////////
+  function postCase(tmp_ID_estiRq) {
+
+    var html_slidePart =
+    ' <div class="w3-third w3-card-4 w3-margin-bottom" > ' +
+    '    <!--carousel--> ' +
+    '    <div id="carousel_dPartPic_'+tmp_ID_estiRq+'" class="carousel slide w3-display-container" align="center" data-ride="carousel" data-interval="false"> ' +
+    '      <!-- Indicators --> ' +
+    '     <ol class="carousel-indicators"> ' +
+    '      <li data-target="#carousel_dPartPic_'+tmp_ID_estiRq+'" data-slide-to="0" class="active"></li>'+
+    '      <li data-target="#carousel_dPartPic_'+tmp_ID_estiRq+'" data-slide-to="1"></li>'+
+    '      <li data-target="#carousel_dPartPic_'+tmp_ID_estiRq+'" data-slide-to="2"></li>'+
+    '      </ol>'+
+    '      <!-- Wrapper for slides -->'+
+    '     <div class="carousel-inner" role="listbox">'+
+    '        <div class="item active" style="height:250px;">'+
+    '          <img id="pic_1" src="" alt="Picture #1">'+
+    '        </div>'+
+    '        <div class="item" style="height:250px;">'+
+    '          <img id="pic_2" src="" alt="Picture #2">'+
+    '        </div>'+
+    '        <div class="item" style="height:250px;">'+
+    '          <img id="pic_3" src="" alt="Picture #3">'+
+    '        </div>'+
+    '      </div>'+
+    '      <!-- Controls -->'+
+    '      <a class="left carousel-control hidden-xs hidden-sm" href="#carousel_dPartPic" role="button" data-slide="prev">'+
+    '      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>'+
+    '      <span class="sr-only">Previous</span>'+
+    '      </a>'+
+    '      <a class="right carousel-control hidden-xs hidden-sm" href="#carousel_dPartPic" role="button" data-slide="next">'+
+    '      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>'+
+    '      <span class="sr-only">Next</span>'+
+    '      </a>'+
+    '      <div class="w3-container w3-black w3-display-topmiddle w3-opacity" style="width:100%;">'+
+    '      <h5 class="w3-left-align">Porche<br>2016 Boxter</h5>'+
+    '      </div>'+
+    '    </div>'+
+    '    <!--/carousel-->';
+
+    var html_inputPart =
+    '  <form class="w3-white" id="formfield" action="upload-esti.php" method="post" enctype="multipart/form-data">'+
+    '      <input type="hidden" name="submitted_estiRq" id="submitted_estiRq" value="1"/>'+
+    '      <input type="hidden" name="ID_estiRq" id="ID_estiRq" value="".$row_estiRq["ID_estiRq"].""/>'+
+    '      <input type="hidden" name="caseOpenedAt" id="caseOpenedAt" value="".$row_estiRq["caseOpenedAt"].""/>'+
+    '   <div class="w3-center w3-padding-medium w3-red ">'+
+    '        <h5 class=""><i class="fa fa-file-text"></i>&nbsp Submit your estimate</h5>'+
+    '      </div>'+
+    '   <div class="w3-row w3-padding-large">'+
+    '        <div class="w3-col s6 w3-padding-medium">'+
+    '        <label>Price</label>'+
+    '        <input class="w3-input w3-border-bottom" type="number" name="estiPrice" id="estiPrice" min="0" max="1000000" placeholder="$" required>'+
+    '        </div>'+
+    '        <div class="w3-col s6 w3-padding-medium">'+
+    '        <label>Repair time</label>'+
+    '        <input class="w3-input w3-border-bottom w3-right" type="number" name="estiRepTime" id="estiRepTime" min="0" max="100" placeholder="Days" required>'+
+    '        </div>'+
+    '      </div>	<!--/w3-row-->'+
+    '      <div class="w3-row w3-padding-16  w3-center">'+
+    '        <input type="button" name="btn" value="Submit" id="submitBtn" data-toggle="modal" data-target="#confirm-submit" class="w3-btn w3-vivid-blue w3-card-4" />'+
+    '        <!--<button id="btn-submit-estiRq" type="submit" class="w3-btn w3-vivid-blue w3-card-4" style="width:50%;" >Send</button>-->'+
+    '      </div>'+
+    '    </form>'+
+    '  </div>';
+
+    var html_textPart =
+    '<div class="w3-white w3-padding-medium" id="">'+
+    '    <div class="w3-center w3-padding-medium w3-vivid-blue ">'+
+    '      <h5 class="w3-medium w3-left-align"><i class="fa fa-file-text"></i>&nbsp Estimate submitted on "10 Dec 2016"</h5>'+
+    '    </div>'+
+    '    <div class="w3-row w3-padding-medium">'+
+    '      <div class="w3-col s6 w3-padding-medium">'+
+    '      <label>Price</label>'+
+    '      <div class="w3-input w3-border-bottom">$ 500</div>'+
+    '      </div>'+
+    '      <div class="w3-col s6 w3-padding-medium">'+
+    '      <label>Repair time</label>'+
+    '      <div class="w3-input w3-border-bottom">2 days</div>'+
+    '      </div>'+
+    '    </div>	<!--/w3-row-->'+
+    '  </div>'+
+    '</div>';
+
+    //post cases
+    var acase = document.createElement('div');
+    acase.setAttribute("id", tmp_ID_estiRq);
+    acase.style.display = 'none';
+    var html = html_slidePart + html_inputPart;
+    acase.innerHTML = html;
+    document.getElementById('casesContainer').appendChild(acase);
+
+  }// End of function: postCase
+/*
+  // downloadPic ///////////////////////////////////////////////////////////////
+  var casesContainer = document.getElementById('casesContainer');
+  casesContainer.addEventListener('DOMNodeInserted', function(event) {
+    if( event.target.parentNode.id == 'casesContainer' ) {
+          //console.log('child added');
+          // Once a case is posted, chage the display attribute of the case
+
+
+          downloadPic(i);
+      };
+  });
+*/
+  function downloadPic(tmp_ID_estiRq, pic) {
+    var ID_estiRq =tmp_ID_estiRq;
+
+    // For 3 pictures
+    // Set download URL for pics
+    var dir = 'dPartPic/'+ ID_estiRq + '/' + pic + '.jpg';
+    // Create a reference with an initial file path and name
+    var pathRef = firebase.storage().ref().child(dir);
+    //var pathRef = storage.ref('dPartPic/test/case_1_before.jpg');
+    // Get the download URL
+    pathRef.getDownloadURL().then(function(url) {
+      console.log(url);
+      // Using jquery
+      $("#" + ID_estiRq).find("#" + pic).attr("src", url);
+    })
+    .then(function() {
+      $('#'+ID_estiRq).show();
+    })
+    .catch(function(error) {
+      switch (error.code) {
+        case 'storage/object_not_found':
+          // File doesn't exist
+          break;
+        case 'storage/unauthorized':
+          // User doesn't have permission to access the object
+          break;
+        case 'storage/canceled':
+          // User canceled the upload
+          break;
+        case 'storage/unknown':
+          // Unknown error occurred, inspect the server response
+          break;
+      }
+    });
+  }
+
+</script>
+<script src="library/w3script.js"></script>
+</body>
+</html>

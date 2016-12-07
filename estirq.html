@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!--<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>-->
+	<meta name='mobile-web-app-capable' content='yes'>
+	<meta name='apple-mobile-web-app-capable' content='yes'>
+	<meta name='viewport' content='width=device-width, height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no' />
+
+	<title>Phix</title>
+	<link rel='manifest' href='manifest.json'>
+	<link rel='icon' sizes='58x58' href='../img/Icon_userapp/AppIcon_Android_58x58.png'>
+
+	<script src='../library/jquery-1.11.2.min.js'></script>
+	<!-- Include the jQuery Mobile library for swipe function-->
+	<script src='../library/jquery.mobile.custom.min.js'></script>
+	<!-- Bootstrap js for carousel -->
+  <script src='../library/bootstrap-3.3.7-dist/js/bootstrap.min.js'></script>
+  <!-- Slide Input -->
+	<script src='../library/jasny-bootstrap/js/jasny-bootstrap.min.js'></script>
+  <!-- JS for carousel -->
+	<script src='../library/common.js'></script>
+	<!-- Datetime Picker-->
+	<script src='../library/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js'></script>
+	<!--<link rel='stylesheet' href='../library/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.css'>-->
+
+	<!-- CSS -------------------------------------------------------------------------------------------------------------->
+	<!-- For image input function: Latest compiled and minified CSS -->
+	<link rel='stylesheet' href='../library/jasny-bootstrap/css/jasny-bootstrap.min.css'>
+	<!-- Bootstrap Core CSS: For carousel -->
+  <link href='../library/bootstrap-3.3.7-dist/css/bootstrap.min.css' rel='stylesheet'>
+	<!-- fontawesome -->
+	<link rel='stylesheet' href='../library/font-awesome-4.3.0/css/font-awesome.min.css'>
+	<!--w3.css-->
+	<link rel='stylesheet' href='../library/w3.css'>
+	<!--<link rel='stylesheet' href='../library/w3-color-library.css'>-->
+	<link rel="stylesheet" href="../library/w3-theme-teal-custom.css">
+
+	<style media="screen">
+    #modal_uploadprogress {
+        display: none;
+        min-height: 100vh;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+		#uploader {
+			-webkit-apperance: none;
+			appearance: none;
+			width: 100%;
+			margin-bottom: 10px;
+		}
+  </style>
+</head>
+
+<body class="">
+	<nav class="w3-sidenav w3-collapse w3-white w3-animate-left w3-card-2" style="z-index:30;width:250px;" id="mySidenav">
+	  <a href="#" class="w3-border-bottom w3-large">Photo your car and fix it!</a>
+	  <a href="javascript:void(0)" onclick="w3_close()"
+	  class="w3-text-teal w3-hide-large w3-closenav w3-large">Close <i class="fa fa-remove"></i></a>
+	  <a href="gallery.html" class="w3-light-grey w3-medium">Home</a>
+	  <a href="estirq.html">Ask estimate</a>
+	  <a href="inbox.html">Inbox</a>
+	  <a href="about.html">About Phix</a>
+	  <div class="w3-section w3-padding-top w3-large">
+	    <a href="#" class="w3-hover-white w3-hover-text-indigo w3-show-inline-block"><i class="fa fa-facebook-official"></i></a>
+	    <a href="#" class="w3-hover-white w3-hover-text-purple w3-show-inline-block"><i class="fa fa-instagram"></i></a>
+	    <a href="#" class="w3-hover-white w3-hover-text-yellow w3-show-inline-block"><i class="fa fa-snapchat"></i></a>
+	    <a href="#" class="w3-hover-white w3-hover-text-red w3-show-inline-block"><i class="fa fa-pinterest-p"></i></a>
+	    <a href="#" class="w3-hover-white w3-hover-text-light-blue w3-show-inline-block"><i class="fa fa-twitter"></i></a>
+	    <a href="#" class="w3-hover-white w3-hover-text-indigo w3-show-inline-block"><i class="fa fa-linkedin"></i></a>
+	  </div>
+	</nav>
+
+	<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" id="myOverlay"></div>
+
+	<div class="w3-main" style="margin-left:250px;">
+
+	<div id="myTop" class="w3-top w3-container w3-padding-16 w3-theme w3-large" style="z-index:20">
+	  <i class="fa fa-bars w3-opennav w3-hide-large w3-xlarge w3-margin-left w3-margin-right" onclick="w3_open()"></i>
+	  <span id="myIntro" class="3-hide">Estimate Request</span>
+	</div>
+
+	<div class='w3-container' style='padding-top:50px; padding-bottom:16px;' >
+		<form class='w3-card-4 w3-white' id="form_estiRq" method='post' enctype="multipart/form-data" >
+			<input type='hidden' name='submitted_estiRq' id='submitted_estiRq' value='1'/>
+			<input type='hidden' name='ID_user' id='ID_user'/>
+			<input type='hidden' name='ID_estiRq' id='ID_estiRq'/>
+
+			<div class='w3-padding-medium'>
+			</div>
+
+			<div class='w3-row'>
+				<div class='w3-half w3-padding-small w3-padding-8 w3-display-container' id='slide_input_estiRq'> <!--slide-input-->
+					<!--carousel-->
+					<div id='carousel_shopPic' class='carousel slide w3-card-4' align='center' data-ride='carousel' data-interval='false'>
+					  <!-- Indicators -->
+					  <ol class='carousel-indicators' style='bottom:5px;'>
+						<li data-target='#carousel_aftWrk' data-slide-to='0' class='active'></li>
+						<li data-target='#carousel_aftWrk' data-slide-to='1'></li>
+						<li data-target='#carousel_aftWrk' data-slide-to='2'></li>
+					  </ol>
+
+					  <!-- Wrapper for slides -->
+					  <div class='carousel-inner w3-dark-grey w3-padding-0' role='listbox' style="height:170px;">
+						<div class='item active'  style="height:100%;">
+							<div class='fileinput fileinput-new w3-padding-0' data-provides='fileinput'>
+								<div class='w3-display-middle'>
+									<span class='btn btn-file fileinput-new'>
+										<h5 class='w3-medium'>Take photos of damaged part</h5>
+										<span class='glyphicon glyphicon-camera w3-xxlarge' ></span>
+										<input type='file' name='pic_1' id='fileButton_1' value='0' />
+									</span>
+								</div>
+								<div class='fileinput-preview thumbnail w3-dark-grey w3-border-0 w3-padding-0' data-trigger='fileinput' name='prv_pic_1' id='prv_pic_1' >
+								</div>
+							</div>
+						</div>
+						<div class='item'  style="height:100%;">
+							<div class='fileinput fileinput-new w3-padding-0' data-provides='fileinput'>
+								<div class='w3-display-middle'>
+									<span class='btn btn-file fileinput-new'>
+										<h5 class='w3-medium'>Take photos of damaged part</h5>
+										<span class='glyphicon glyphicon-camera w3-xxlarge' ></span>
+										<input type='file' name='pic_2' id='fileButton_2' value='0' />
+									</span>
+								</div>
+								<div class='fileinput-preview thumbnail w3-dark-grey w3-border-0 w3-padding-0' data-trigger='fileinput' name='prv_pic_2' id='prv_pic_2' >
+								</div>
+							</div>
+						</div>
+						<div class='item'  style="height:100%;">
+							<div class='fileinput fileinput-new w3-padding-0' data-provides='fileinput'>
+								<div class='w3-display-middle'>
+									<span class='btn btn-file fileinput-new'>
+										<h5 class='w3-medium'>Take photos of damaged part</h5>
+										<span class='glyphicon glyphicon-camera w3-xxlarge' ></span>
+										<input type='file' name='pic_3' id='fileButton_3' value='0' />
+									</span>
+								</div>
+								<div class='fileinput-preview thumbnail w3-dark-grey w3-border-0 w3-padding-0' data-trigger='fileinput' name='prv_pic_3' id='prv_pic_3' >
+								</div>
+							</div>
+						</div>
+					  </div>
+
+					  <!-- Controls -->
+					  <a class='left carousel-control hidden-xs hidden-sm' href='#carousel_aftWrk' role='button' data-slide='prev'>
+						<span class='glyphicon glyphicon-chevron-left' aria-hidden='true'></span>
+						<span class='sr-only'>Previous</span>
+					  </a>
+					  <a class='right carousel-control hidden-xs hidden-sm' href='#carousel_aftWrk' role='button' data-slide='next'>
+						<span class='glyphicon glyphicon-chevron-right' aria-hidden='true'></span>
+						<span class='sr-only'>Next</span>
+					  </a>
+					</div>
+					<!--/carousel-->
+				</div><!--/slide-input-->
+
+
+				<div class='w3-half w3-padding-medium'> <!--select input-->
+					<div class='w3-padding-12' id='estiRq_carInfo'>
+						<h3 class='w3-large'><i class="fa fa-car"></i>&nbsp Your car info</h3>
+						<select class="w3-select w3-white w3-border-bottom show-tick" name="year" id="year" data-style="btn" data-width="100%" >
+							<option value="year" disabled selected>Year</option>
+						</select>
+						<select class="w3-select w3-white w3-border-bottom show-tick" name="maker" id="maker" data-style="btn" data-width="100%" disabled='true' required>
+							<option value="maker" disabled selected>Maker</option>
+						</select>
+						<select class="w3-select w3-white w3-border-bottom show-tick" name="model" id="model" data-style="btn" data-width="100%" disabled='true' required>
+							<option value="model" disabled selected>Model</option>
+						</select>
+					</div>
+					<div class='w3-padding-12' id='estiRq_carInfo'>
+						<h3 class='w3-large'><i class="fa fa-map-marker"></i>&nbsp Shop location you prefer</h3>
+						<select class="w3-select w3-white w3-border-bottom show-tick" name="province" id="province" data-style="btn" data-width="100%">
+							<option value="province" disabled selected>Province</option>
+						</select>
+						<select class="w3-select w3-white w3-border-bottom show-tick" name="city" id="city" data-style="btn" data-width="100%" disabled='true'>
+							<option value="city" disabled selected>City</option>
+						</select>
+					</div>
+					<div class='w3-padding-12' id='estiRq_carInfo'>
+						<label class="w3-validate"><h3 class='w3-large'><i class="fa fa-shield"></i>&nbsp Insurance applied</h3></label>
+						<input class="w3-check" type="checkbox" name="insuApplied" id="insuApplied" checked="checked">
+					</div>
+					<div class='w3-padding-12' id='estiRq_carInfo'>
+						<label class="w3-validate">
+							<h3 class='w3-medium'><i class="fa fa-bell"></i>&nbsp Notify me when an estimate is arrived</h3>
+						</label>
+						<input class="w3-check" type="checkbox" name="insuApplied" id="allowNoti" checked="checked">
+					</div>
+					<!--
+					<div class='w3-padding-12 w3-row' id='estiRq_carInfo'>
+						<h3 class='w3-large'><i class="fa fa-shield"></i>&nbsp Phone number for SMS alert</h3>
+						<input class="w3-input w3-border-bottom" type="text" name='phoneNumber_user'>
+					</div>
+				-->
+				</div> <!--/select input-->
+			</div>	<!--/w3-row-->
+			<div class='w3-row w3-padding-64 w3-center'>
+				<button id='btn-submit-estiRq' type='submit' class="w3-btn w3-vivid-blue w3-card-4" style="width:60%;" >Send</button>
+			</div>
+		</form>
+	</div> <!--/container-->
+
+	<!-- Modal: Confirm send -->
+	<div id="modal_confirm_send" class="modal fade modal-vertical-centered" tabindex="-1" align="center" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+		<div class="modal-content" style="width:90%;">
+		  <!-- dialog body -->
+		  <div class="modal-body">
+			<h4 align="center">Your estimate request</h4>
+			<h4 align="center">has been sent out.</h4>
+			<br>
+			<div align="center">
+				<a class="w3-btn w3-vivid-blue w3-card-4 btn-linkTo-box" style="width:40%;" role='button'>OK</a>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+
+	<!-- Modal: error message -->
+	<div id="modal_form_errorMsg" class='modal fade modal-vertical-centered' tabindex="-1" align="center" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+		<div class="modal-content w3-card-4" style="width:90%;">
+		  <!-- dialog body -->
+		  <div class="modal-body">
+			<h4 align="center" ><i class="fa fa-exclamation-circle"></i> All fields are required. </h4>
+
+				<h5 align="left" id='errorMsg' style='margin-left:25px;'></h5>
+				<br>
+				<div align="center">
+					<button id='btn-errorMsg-ok' class="w3-btn w3-vivid-blue w3-card-4" style="width:40%;" data-dismiss='modal'>OK</button>
+				</div>
+
+		  </div>
+		</div>
+	  </div>
+	</div>
+
+	<!-- Modal for uploding progress-->
+	<div id="modal_uploadprogress" class="w3-modal">
+    <div class="w3-modal-content">
+      <div class="w3-container">
+				<h5 id="modal_uploadprogress_text">Submitting estimate request</h5>
+        <progress value="0" max="100" id="uploader">0%</progress>
+      </div>
+    </div>
+  </div>
+	<!-- End: Modal for uploding progress-->
+
+	<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
+	<script>
+	  // Initialize Firebase
+	  var config = {
+	    apiKey: "AIzaSyBrkH-VwRWZleVc9kEvRg9GkgWvhj7Apvw",
+	    authDomain: "test1-b33bf.firebaseapp.com",
+	    databaseURL: "https://test1-b33bf.firebaseio.com",
+	    storageBucket: "test1-b33bf.appspot.com",
+	    messagingSenderId: "786302948381"
+	  };
+	  firebase.initializeApp(config);
+	</script>
+	<script src="library/w3script.js"></script>
+
+<script>
+// Shortcuts to DOM Elements.
+var form_estiRq = document.getElementById('form_estiRq');
+var yearInput = document.getElementById('year');
+var makerInput = document.getElementById('maker');
+var modelInput = document.getElementById('model');
+var provinceInput = document.getElementById('province');
+var cityInput = document.getElementById('city');
+var insuAppliedInput = document.getElementById('insuApplied');
+var modal_uploadprogress = document.getElementById('modal_uploadprogress');
+var uploader = document.getElementById('uploader');
+var allowNotiInput = document.getElementById('allowNoti');
+var tokenGlobal;
+var totalBytesOfPics;
+var totalBytesTransferred;
+var ID_estiRq = null;
+var file = [];
+var percentageAccum = 0;
+var percentage;
+
+//Listen for file selection and push to the 'file' array
+fileButton_1.addEventListener('change', function(e) {
+	// Get file
+	file[0] = e.target.files[0];
+	console.log(file.length);
+})
+fileButton_2.addEventListener('change', function(e) {
+	// Get file
+	file[1] = e.target.files[0];
+	console.log(file.length);
+})
+fileButton_3.addEventListener('change', function(e) {
+	// Get file
+	file[2] = e.target.files[0];
+	console.log(file.length);
+})
+
+//Listen for file selection
+function uploadPic(fileToUpload, dirToUpload) {
+	// Create a storage ref
+	var storageRef = firebase.storage().ref(dirToUpload);
+	// Upload file
+	var task = storageRef.put(fileToUpload);
+
+	// Update Progress bar
+	task.on('state_changed',
+		function Progress(snapshot) {
+			//totalBytesTransferred += snapshot.bytesTransferred;
+			percentage = (snapshot.bytesTransferred / totalBytesOfPics)*100;
+			uploader.value = parseInt(percentageAccum + percentage);
+		},
+		function error(err) {
+			console.log('Error occurred while uploading a file: ' + err.toString());
+		},
+		function complete() {
+			percentageAccum += percentage;
+			console.log('Succeed upload a pic');
+
+			if(percentageAccum == 100) {
+				modal_uploadprogress_text.innerHTML = "Upload completed";
+				setTimeout( function() {window.location = 'gallery.html';}, 2000);
+			}
+		}
+	)
+};
+
+/**
+ * Saves a new post to the Firebase DB.
+ */
+// [START write_fan_out]
+function saveEstiRqinRTDB(uid, year, maker, model, province, city, insuApplied) {
+	//calculate current datetime
+	var curDatetime = currentTimestamp();
+
+  // A post entry.
+	var postData = {
+    ID_user: uid,
+    caseOpenedAt: curDatetime,
+    car: {
+      year: year,
+      maker: maker,
+      model: model
+    },
+    address: {
+      province: province,
+      city: city
+    },
+    insuApplied: insuApplied,
+    countEstiReceived: 0,
+    rsvRqtdAt: null,
+		estis: {}
+  };
+  // Get a key for a new estiRq.
+  ID_estiRq = firebase.database().ref().child('estiRqs').push().key;
+
+	// Save the key in localStorage
+	for(i=1;i<11;i++) {
+		// check how many keys are saved (maximum 10)
+		var name = "estiRq_" + i.toString();
+		var value = localStorage.getItem(name);
+		if( value != null ) {
+			console.log(value);
+		} else {
+			// Save the key of estiRq
+			localStorage.setItem(name, ID_estiRq);
+			console.log(value);
+			break;
+		}
+	}
+
+  // Write the new post's data simultaneously in the posts list and the user's post list.
+	var updates = {};
+  updates['/estiRqs/' + ID_estiRq] = postData;
+
+console.log('ID_estiRq: ' + ID_estiRq);
+
+	firebase.database().ref().update(updates)
+	.then(function() {
+		console.log('Input values are successfully saved in RTDB.');
+	})
+	.catch(function(error) {
+		console.error('Service Worker Error', error);
+	});
+}
+
+form_estiRq.onsubmit = function(e) {
+	e.preventDefault();
+
+	console.log(currentTimestamp());
+
+	// 1. Sign in as Anonymous
+
+	// 2. submitEstiRq
+	submitEstiRq();
+
+	// 3. requestPermission for Noti
+	//requestPermission();
+
+	// 4. Get Objects of estiRq
+	// Global variables
+	var estiRqs = [];
+	var estiRqRef = firebase.database().ref('estiRqs/').limitToLast(3);
+	// TODO: change this dir to esti later.
+
+	estiRqRef.on('value', function(snapshot) {
+
+		snapshot.forEach(function(childSnapshot){
+			var tmp_ID_estiRq = childSnapshot.key;
+			var childDir = firebase.database().ref('estiRqs/' + tmp_ID_estiRq);
+
+			childDir.on('value', function(grandchildsnapshot) {
+				var tmp_ID_user = grandchildsnapshot.val().ID_user;
+				var tmp_city = grandchildsnapshot.val().address.city;
+				var tmp_province = grandchildsnapshot.val().address.province;
+				var tmp_year = grandchildsnapshot.val().car.year;
+				var tmp_maker = grandchildsnapshot.val().car.maker;
+				var tmp_model = grandchildsnapshot.val().car.model;
+				var tmp_insuApplied = grandchildsnapshot.val().insuApplied;
+				var tmp_caseOpenedAt = grandchildsnapshot.val().caseOpenedAt;
+				var tmp_countEstiReceived = grandchildsnapshot.val().countEstiReceived;
+				var tmp_token = grandchildsnapshot.val().token;
+
+				// Tokens are all saved
+				//tokens.push(token);
+				var estiRq = {ID_estiRq:tmp_ID_estiRq, ID_user:tmp_ID_user, year:tmp_year, maker:tmp_maker, model:tmp_model, insuApplied:tmp_insuApplied, caseOpenedAt:tmp_caseOpenedAt};
+				estiRqs.push(estiRq);
+			})
+		});
+		for(i=0;i<estiRqs.length;i++) {
+			console.log(estiRqs[i]);
+		}
+	});
+
+	//5. Send notification to shops
+	//sendNoti();
+
+
+}
+
+function submitEstiRq() {
+	// show modal_uploadprogress
+	modal_uploadprogress.style.display='flex';
+
+	// Get the input value
+	var uid = firebase.auth().currentUser.uid;
+	var year = yearInput.value;
+	var maker = makerInput.value;
+	var model = modelInput.value;
+	var province = provinceInput.value;
+	var city = cityInput.value;
+	var insuApplied = insuAppliedInput.value;
+	//save input value
+	saveEstiRqinRTDB(uid, year, maker, model, province, city, insuApplied);
+
+	//upload 3 pics
+	totalBytesOfPics = file[0].size + file[1].size + file[2].size;
+	console.log(totalBytesOfPics);
+	for(i=0;i<file.length;i++) {
+		var tmpCnt = i + 1;
+		// Create a storage ref
+		var dirToUpload = ID_estiRq +  '/pic_' + tmpCnt.toString() + '.jpg';
+
+		uploadPic(file[i], dirToUpload);
+	} // End of for
+
+	// TODO: Validate input value
+	//
+	//
+	//
+	//
+
+	// Save input values in RTDB
+	return true;
+} // End of eventhandler
+
+function validateInput() {
+	//disable send button
+	$('#btn-submit-estiRq').attr('disabled',true);
+	// Handle the input error ///////////////////////////////////////////////////////////////////////////////////
+	//check if all fields are filled
+	var tmp_errorMsg = '<br>';
+	// Pic selected?
+	if($('#pic_1').val() == 0 || $('#pic_2').val() == 0 || $('#pic_3').val() == 0 )	{
+		//tmp_errorMsg += '<i class="fa fa-square-o"></i> Upload three photos. <br><br>';
+	}
+	if($('#year').val() == 'year' || $('#maker').val() == 'maker' || $('#model').val() == 'model' )	{
+		tmp_errorMsg += '<i class="fa fa-square-o"></i> Enter your car info. <br><br>';
+	}
+	if($('#province').val() == 'Province' || $('#city').val() == 'City' )	{
+		tmp_errorMsg += '<i class="fa fa-square-o"></i> Enter a preferred shop location. <br>'
+	}
+	if(tmp_errorMsg != '<br>') {
+		$('#errorMsg').html(tmp_errorMsg);
+		$('#modal_form_errorMsg').modal('show');
+		//enable submit button
+		$('#btn-submit-estiRq').attr('disabled',false);
+
+		return false;
+	}
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+
+	//var dir = "app/upload/dPartPic/" + ID_estiRq.split(' ').join('');
+
+	//Set ID_user in localStorage
+	var tmp_ID_appuser = localStorage.getItem("ID_user");
+
+	//Save ID_estiRq in LocalStorage
+	window.localStorage.setItem("ID_estiRq", ID_estiRq);
+}
+</script>
+
+<script>
+	if ('serviceWorker' in navigator && 'PushManager' in window) {
+	console.log('Service Worker and Push is supported');
+
+	navigator.serviceWorker.register('firebase-messaging-sw.js')
+	.then(function(swReg) {
+		console.log('Service Worker is registered', swReg);
+
+		swRegistration = swReg;
+	})
+	.catch(function(error) {
+		console.error('Service Worker Error', error);
+	});
+	} else {
+	console.warn('Push messaging is not supported');
+	pushButton.textContent = 'Push Not Supported';
+	}
+</script>
+
+<script>
+$(document).ready(function(){
+	$('.btn-box').hide(); $('.btn-aboutUs').hide();
+	$('.btn-box-history').hide();
+	$('.btn-back').show();
+
+	// Fill in the Options in Select
+	for(var i=0;i<10;i++){
+		$('<option>').attr({'value':curYear-i}).html(curYear-i).appendTo('#year');
+	}
+	$('<option>').html('Older').appendTo('#year');
+});
+
+function changeText() {
+	document.getElementById('testText').innerHTML = 'Reservation Confirmed';
+	document.getElementById('rsvCfmBtns').style.display = 'none';
+}
+
+$('.btn-group-justified').click(function(e) {
+	e.preventDefault();
+	$(this).find('span').toggleClass('glyphicon-chevron-down glyphicon-chevron-up');
+})
+
+//2. Car Info/////////////////////////////////////////////////////////////////////////////////////////////////
+var cars = [
+["Acura","ILX","MDX","RDX","RL","RLX","TL","TLX","TSX","TSX Sport Wagon","ZDX"],
+["Alfa Romeo","4C"],
+["Aston Martin","DB9","Rapide","Rapide S","V12 Vantage","V8 Vantage","V8 Vantage Roadster","Vanquish"],
+["Audi","A3","A4","A4 allroad","A5","A6","A7","A8","Q5","Q7","R8","RS5","RS7","S4","S5","S6","S7","S8","SQ5","TT","TT RS","TTS","allroad"],
+["Volkswagen","Passat","Golf"]
+];
+
+var address = [
+	["British Columbia","Burnaby","Coquitlam","New Westminster","North Vancouver","Port Coquitlam","Port Moody","Richmond","Surrey","Vancouver","West Vancouver","Langley"],
+	["Alberta"],
+	["Ontario"]
+];
+// Add select year element
+var d = new Date();
+var curYear = d.getFullYear();
+
+$('#year').change(function() {
+	$('#maker').attr('disabled',false);
+	$('#maker').empty(); $('<option>').attr({'value':null}).html('Maker').appendTo('#maker');
+	$('#model').empty(); $('<option>').attr({'value':null}).html('Model').appendTo('#model');
+	for(var j=0; j<cars.length;j++) {
+		$('<option>').attr({'value':cars[j][0]}).html(cars[j][0]).appendTo('#maker');
+	}
+	// Enhance new select element
+	//$('#maker').selectpicker('refresh');
+
+});
+
+$(document).on('change', '#maker', function(){
+	$('#model').attr('disabled',false);
+	$('#model').empty();
+	$('<option>').attr({'value':null}).html('Model').appendTo('#model');
+
+	for(var k=0;k<cars.length;k++) {
+		if($("#maker option:selected").text()==cars[k][0]) {
+			for(var m=1;m<cars[k].length;m++) {
+				$('<option>').attr({'value':cars[k][m]}).html(cars[k][m]).appendTo('#model');
+			}
+		}
+	}
+});
+
+// Location Info ///////////////////////////////////////////////////////////////////////////////////////////////////
+// Add a new select element
+for(var p=0;p<address.length;p++) {
+	$('<option>').attr({'value':address[p][0]}).html(address[p][0]).appendTo('#province');
+}
+
+$(document).on('change', '#province', function(){
+	//empty div_city
+	$('#city').attr('disabled',false);
+	$('#city').empty(); $('<option>').attr({'value':null}).html('City').appendTo('#city');
+
+	//Add options in <select> #city
+	for(var q=0; q<address.length;q++){
+	if($("#province option:selected").val()==address[q][0]) {
+			for(var r=1;r<address[q].length;r++) {
+				$('<option>').attr({'value':address[q][r]}).html(address[q][r]).appendTo('#city');
+			}
+		}
+	}
+	// Enhance new select element
+	//$('#city').selectpicker('refresh');
+});
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+</script>
+
+<script src="getToken.js"></script>
+<script src="HttpPostRequestForNoti.js"></script>
+<script src="library/timestamp.js"></script>
+
+</body>
+</html>

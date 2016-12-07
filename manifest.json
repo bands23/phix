@@ -1,0 +1,38 @@
+{
+  "short_name": "Phix App",
+  "name": "Phix",
+  "description": "Photo your car and Fix it!",
+  "icons": [
+    {
+      "src": "../img/Icon_userapp/AppIcon_Android_58x58.png",
+      "sizes": "58x58",
+      "type": "image/png",
+      "density": 1.0
+    },
+    {
+      "src": "../img/Icon_userapp/AppIcon_iOS_114x114.png",
+      "sizes": "114x114",
+      "type": "image/png",
+      "density": 2.0
+    },
+    {
+      "src": "../img/Icon_userapp/AppIcon_iOS_144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "density": 3.0
+    },
+    {
+      "src": "../img/Icon_userapp/AppIcon_iOS_180x180.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "density": 3.5
+    }
+  ],
+  "start_url": "intro.html",
+  "display": "standalone",
+  "orientation": "portrait",
+
+  "//": "Some browsers will use this to enable push notifications.",
+  "//": "It is the same for all projects, this is not your project's sender ID",
+  "gcm_sender_id": "103953800507"
+}

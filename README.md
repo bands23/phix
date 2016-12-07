@@ -1,18 +1,29 @@
 # phix
-project for studying firebase and react<br>
-<br>
-About the Project<br>
 
-App pages:
-<br>
-  estirq.html<br>
-  inbox.html<br>
+####project for studying firebase and react
 
-Shop pages:
-<br>
-  inbox-shop.html<br>
-  reservation.html<br>
+##App pages:
+
+>###estirq.html
   
+>>* Get token for Push notification
+* Save input values(estimate request) in Realtime database
+* Upload 3 pictures on storage
+* Push notification for shops - Estimate request  
   
-2016.12.06@11:24am
+>###inbox.html
+>>* Retrieve estimate request from Realtime database according to its status
+* Save input values(reservation) in Realtime database
+* Push notification for shops - Reservation request
 
+##Shop pages:
+
+>###inbox-shop.html
+>>* Retrieve the estimate request from Realtime database
+* Save input values(estimate) in firebase Realtime database
+* Push notification for user - Estimate received
+
+>###reservation.html
+>>* Retrieve the estimate request from Realtime database
+* Save input values(reservation confirm) in firebase Realtime database
+* Push notification for user - Reservation confirmed
